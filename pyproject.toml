@@ -1,0 +1,30 @@
+[project]
+name = "VisionaryFair-Py-MP"
+version = "0.1.0"
+description = "VisionaryFair Algorithm's Unofficial Python Implementation"
+readme = "README.md"
+authors = [
+    { name = "Macros Meng", email = "meng-yc@outlook.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.5.2",
+]
+
+[project.scripts]
+visionaryfair-py-mp = "visionaryfair_py_mp:main"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
+
+[[tool.uv.index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = true
+
+[dependency-groups]
+dev = [
+    "blue>=0.9.1",
+    "ruff>=0.16.5",
+    "ty>=0.0.75",
+]
