@@ -63,7 +63,7 @@ class WeightSettings:
 
     personal_horizon: float = 2
     lowest_rnd: float = 0.1
-    dimensions: list[DrawHistory] = field(default_factory=list)
+    dimensions: list[DimensionBalance] = field(default_factory=list)
 
 
 @dataclass
