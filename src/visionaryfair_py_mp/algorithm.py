@@ -1,5 +1,5 @@
-from numpy.typing import NDArray
 import numpy as np
+from numpy.typing import NDArray
 
 from src.visionaryfair_py_mp import structs
 
@@ -115,18 +115,19 @@ class VisionaryFairMP:
 
     @staticmethod
     def to_probabilities(
-        result: structs.WeightResult,
-        settings: structs.WeightSettings
+        result: structs.WeightResult, settings: structs.WeightSettings
     ) -> NDArray[np.double]:
         floor = settings.lowest_rnd
         if floor < 0 or floor > 1:
             raise ValueError(f'{floor=} 必须在 [0, 1] 内')
-        
+
         pool_size = len(result.candidates)
         floor_share = floor / pool_size
         probabilities = np.array(pool_size)
 
         for i in range(pool_size):
-            probabilities[i] = (1 - floor) * result.candidates[i].weight / result.weight_sum + floor_share
+            probabilities[i] = (1 - floor) * result.candidates[
+                i
+            ].weight / result.weight_sum + floor_share
 
         return probabilities
