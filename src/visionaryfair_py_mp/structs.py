@@ -16,6 +16,7 @@ class StudentMeta:
         max_pick: 本周期学生最多被抽到的次数，作为安全阀。为 ``0`` 代表不限次数。
         labels: 需要做均衡的分类维度，用整数。例如：[1, 2, 3] 代表在维度 0 数值为 1，在第 1 维度数值为 2，在第 2 维度数值为 3。
     """
+
     id: int
     multiplier: float
     max_pick: int = 0
@@ -30,6 +31,7 @@ class DimensionBalance(NamedTuple):
         dimension_id: 维度编号，对应 ``StudentMeta.labels`` 的下标。
         horizon_per_pick: 视野系数：乘以批量后得到该层的宽容度。
     """
+
     dimension_id: int
     horizon_per_pick: float = 0.8
 
@@ -43,6 +45,7 @@ class DrawHistory:
         id: 学生唯一标识。
         count: 已被抽中次数。
     """
+
     id: int
     count: int = 0
 
@@ -57,6 +60,7 @@ class WeightSettings:
         lowest_rnd: 保底份额。任何池内学生的最低被抽概率 = 该值 / 池内人数。它也是交替率的精确调节器: P(A) = 1/2 + (1-e)² / (2(2-e)), 误差 ±0.002。注意池很小时保底会变大 (剩 10 人时每人 1%), 此时权重的影响被稀释。
         dimensions: 需要做均衡的维度。空数组 = 只做个人层均衡。
     """
+
     personal_horizon: float = 2
     lowest_rnd: float = 0.1
     dimensions: list[DrawHistory] = field(default_factory=list)
@@ -73,10 +77,13 @@ class CandidateWeight:
         debt: 个人欠账: 到未来 H 次为止应得的份额减去已拿到的, 负数归零。
         dimension_debts: 各维度欠账, 与 ``WeightSettings.dimensions`` 同序。
     """
+
     id: int
     weight: float
     debt: float
-    dimension_debts: NDArray[np.double] = field(default=np.array([], dtype=np.double))
+    dimension_debts: NDArray[np.double] = field(
+        default=np.array([], dtype=np.double)
+    )
 
 
 @dataclass
@@ -90,6 +97,7 @@ class WeightResult:
         is_uniformed: 表示全池欠账是否已经同时清零, 并退化为等权。
         is_determined: 表示池内是否只剩一人, 抽取结果确定。
     """
+
     candidates: list[CandidateWeight]
     weight_sum: float
     is_uniformed: bool
