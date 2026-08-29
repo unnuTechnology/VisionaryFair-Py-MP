@@ -24,9 +24,7 @@ def compute(
         item = pool[i]
 
         if item.multiplier <= 0:
-            raise ValueError(
-                f'项目 {item.id} 的倍率 {item.multiplier} 必须为正的有限值'
-            )
+            raise ValueError(f'项目 {item.id} 的倍率 {item.multiplier} 必须为正的有限值')
 
         count = draw_count_by_id.get(item.id, 0)
         if count <= 0:
@@ -36,9 +34,7 @@ def compute(
         multiplier_sum += item.multiplier
 
     total_draws = draw_count.sum()
-    share = (
-        np.array([s.multiplier for s in pool], np.double) / multiplier_sum
-    )
+    share = np.array([s.multiplier for s in pool], np.double) / multiplier_sum
 
     personal_horizon = settings.personal_horizon * pool_size
     personal_debt = np.zeros(pool_size, np.double)
